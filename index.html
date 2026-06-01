@@ -1,360 +1,447 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>For Sejal ❤️</title>
-<style>
-  *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"Segoe UI",sans-serif;
-  }
-
-  body{
-    min-height:100vh;
-    overflow:hidden;
-    background:linear-gradient(135deg,#ffd9e8 0%, #ffeef6 45%, #ffe6f1 100%);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-  }
-
-  .bg-heart{
-    position:absolute;
-    pointer-events:none;
-    color:#ff7aa8;
-    animation:floatUp linear infinite;
-    z-index:1;
-    filter:drop-shadow(0 2px 4px rgba(0,0,0,.08));
-  }
-
-  @keyframes floatUp{
-    from{
-      transform:translateY(110vh);
-      opacity:0;
-    }
-    10%{opacity:1;}
-    to{
-      transform:translateY(-130vh);
-      opacity:0;
-    }
-  }
-
-  .trail-heart{
-    position:fixed;
-    pointer-events:none;
-    z-index:99999;
-    animation:trail .75s ease-out forwards;
-    font-size:18px;
-    filter:drop-shadow(0 2px 4px rgba(0,0,0,.08));
-  }
-
-  @keyframes trail{
-    from{
-      opacity:1;
-      transform:translateY(0) scale(1);
-    }
-    to{
-      opacity:0;
-      transform:translateY(-18px) scale(.7);
-    }
-  }
-
-  .scene{
-    width:100%;
-    max-width:900px;
-    padding:24px;
-    text-align:center;
-    position:relative;
-    z-index:10;
-  }
-
-  .title{
-    font-size:clamp(1.8rem, 4vw, 2.8rem);
-    color:#ff4f8a;
-    font-weight:800;
-    letter-spacing:.2px;
-    margin-bottom:10px;
-    text-shadow:0 6px 18px rgba(255,79,138,.12);
-  }
-
-  .subtitle{
-    font-size:1.05rem;
-    color:#666;
-    margin-bottom:24px;
-  }
-
-  .open-btn{
-    border:none;
-    background:linear-gradient(135deg,#ff4f8a,#ff6aa0);
-    color:#fff;
-    padding:15px 30px;
-    border-radius:999px;
-    font-size:1rem;
-    font-weight:700;
-    cursor:pointer;
-    box-shadow:0 14px 30px rgba(255,79,138,.25);
-    transition:transform .2s ease, box-shadow .2s ease;
-  }
-
-  .open-btn:hover{
-    transform:translateY(-2px) scale(1.03);
-    box-shadow:0 18px 34px rgba(255,79,138,.3);
-  }
-
-  .open-btn:active{
-    transform:translateY(0) scale(.99);
-  }
-
-  .stage{
-    width:420px;
-    height:500px;
-    margin:42px auto 0;
-    position:relative;
-    display:none;
-    overflow:visible;
-  }
-
-  .envelope{
-    width:420px;
-    height:250px;
-    position:absolute;
-    left:50%;
-    bottom:0;
-    transform:translateX(-50%);
-    z-index:2;
-  }
-
-  .base{
-    position:absolute;
-    inset:auto 0 0 0;
-    height:250px;
-    background:linear-gradient(180deg,#f58cb0,#f07aa3);
-    border-radius:18px;
-    box-shadow:0 18px 30px rgba(0,0,0,.12);
-    z-index:1;
-  }
-
-  .flap{
-    position:absolute;
-    top:0;
-    left:0;
-    width:0;
-    height:0;
-    border-left:210px solid transparent;
-    border-right:210px solid transparent;
-    border-top:130px solid #ec5f93;
-    transform-origin:top center;
-    transition:transform .95s cubic-bezier(.2,.8,.2,1);
-    z-index:4;
-  }
-
-  .left-triangle,
-  .right-triangle{
-    position:absolute;
-    bottom:0;
-    width:0;
-    height:0;
-    z-index:3;
-  }
-
-  .left-triangle{
-    left:0;
-    border-top:125px solid transparent;
-    border-left:210px solid #f3a1be;
-  }
-
-  .right-triangle{
-    right:0;
-    border-top:125px solid transparent;
-    border-right:210px solid #f3a1be;
-  }
-
-  .letter{
-    position:absolute;
-    left:50%;
-    top:34px;
-    width:340px;
-    height:218px;
-    transform:translateX(-50%) translateY(22px);
-    background:#fff;
-    border-radius:18px;
-    padding:18px 20px;
-    box-shadow:0 12px 30px rgba(0,0,0,.16);
-    z-index:2;
-    transition:transform 1s cubic-bezier(.2,.8,.2,1), opacity .5s ease;
-    overflow:hidden;
-  }
-
-  .envelope.open .flap{
-    transform:rotateX(180deg);
-  }
-
-  .envelope.open .letter{
-    transform:translateX(-50%) translateY(-225px) scale(1.01);
-  }
-
-  .letter h2{
-    font-size:1.35rem;
-    color:#ff4f8a;
-    margin-bottom:10px;
-  }
-
-  .letter p{
-    font-size:0.97rem;
-    line-height:1.42;
-    color:#444;
-    margin-bottom:8px;
-  }
-
-  .final{
-    margin-top:10px;
-    font-size:1rem;
-    font-weight:800;
-    color:#ff4f8a;
-  }
-
-  .note{
-    margin-top:18px;
-    font-size:.85rem;
-    color:#7a7a7a;
-  }
-
-  @media (max-width: 480px){
-    .scene{
-      padding:18px 14px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Sejal ❤️</title>
+  <style>
+    :root {
+      --bg-1: #ffd8e7;
+      --bg-2: #fff3f7;
+      --bg-3: #ffe9f1;
+      --pink: #ff4f8a;
+      --pink-2: #ff75a9;
+      --card: rgba(255, 255, 255, 0.96);
+      --text: #404040;
+      --muted: #727272;
+      --shadow: 0 24px 60px rgba(255, 79, 138, 0.18);
     }
 
-    .subtitle{
-      font-size:.98rem;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    .stage{
-      width:330px;
-      height:460px;
-      margin-top:34px;
+    html, body {
+      height: 100%;
     }
 
-    .envelope{
-      width:330px;
-      height:210px;
+    body {
+      overflow-x: hidden;
+      overflow-y: auto;
+      background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 46%, var(--bg-3) 100%);
+      color: var(--text);
     }
 
-    .base{
-      height:210px;
+    .scene {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      place-items: start center;
+      padding: 40px 24px 100px;
     }
 
-    .flap{
-      border-left:165px solid transparent;
-      border-right:165px solid transparent;
-      border-top:110px solid #ec5f93;
+    .floating-heart {
+      position: absolute;
+      pointer-events: none;
+      color: #ff7ba9;
+      filter: drop-shadow(0 4px 8px rgba(255, 79, 138, 0.10));
+      opacity: 0.9;
+      animation: rise linear infinite;
+      z-index: 1;
     }
 
-    .left-triangle{
-      border-left:165px solid #f3a1be;
-      border-top:105px solid transparent;
+    @keyframes rise {
+      0%   { transform: translateY(110vh) scale(0.9); opacity: 0; }
+      12%  { opacity: 0.95; }
+      100% { transform: translateY(-130vh) scale(1.1); opacity: 0; }
     }
 
-    .right-triangle{
-      border-right:165px solid #f3a1be;
-      border-top:105px solid transparent;
+    .trail-heart {
+      position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      font-size: 18px;
+      animation: trail 0.85s ease-out forwards;
+      filter: drop-shadow(0 3px 8px rgba(255, 79, 138, 0.12));
     }
 
-    .letter{
-      width:282px;
-      height:188px;
-      top:28px;
-      padding:15px 16px;
+    @keyframes trail {
+      from { transform: translateY(0) scale(1); opacity: 1; }
+      to   { transform: translateY(-18px) scale(0.72); opacity: 0; }
     }
 
-    .letter h2{
-      font-size:1.15rem;
-      margin-bottom:7px;
+    .panel {
+      position: relative;
+      z-index: 10;
+      width: min(980px, 100%);
+      text-align: center;
+      padding: 10px 12px 40px;
     }
 
-    .letter p{
-      font-size:.9rem;
-      line-height:1.35;
-      margin-bottom:6px;
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.58);
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 30px rgba(255, 79, 138, 0.08);
+      margin-bottom: 16px;
+      color: var(--pink);
+      font-weight: 700;
+      letter-spacing: 0.02em;
     }
 
-    .envelope.open .letter{
-      transform:translateX(-50%) translateY(-190px) scale(1.01);
+    .title {
+      font-size: clamp(2rem, 5vw, 3.35rem);
+      line-height: 1.04;
+      font-weight: 900;
+      color: var(--pink);
+      text-shadow: 0 8px 24px rgba(255, 79, 138, 0.12);
+      margin-bottom: 10px;
     }
 
-    .final{
-      font-size:.95rem;
-      margin-top:8px;
+    .subtitle {
+      font-size: clamp(1rem, 2.2vw, 1.12rem);
+      color: var(--muted);
+      margin-bottom: 24px;
     }
-  }
-</style>
+
+    .cta {
+      border: none;
+      border-radius: 999px;
+      padding: 15px 32px;
+      background: linear-gradient(135deg, var(--pink), var(--pink-2));
+      color: white;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+
+    .cta:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 28px 60px rgba(255, 79, 138, 0.22);
+      filter: saturate(1.02);
+    }
+
+    .cta:active {
+      transform: translateY(0) scale(0.99);
+    }
+
+    .stage {
+      position: relative;
+      display: none;
+      width: min(520px, 100%);
+      height: 760px;
+      margin: 42px auto 120px;
+      overflow: visible;
+    }
+
+    .envelope {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 460px;
+      height: 270px;
+      filter: drop-shadow(0 24px 35px rgba(255, 79, 138, 0.18));
+    }
+
+    .base {
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 270px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #f58cb0 0%, #f178a4 100%);
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .base::before,
+    .base::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      z-index: 2;
+    }
+
+    .base::before {
+      left: 0;
+      border-width: 135px 0 0 230px;
+      border-color: transparent transparent transparent rgba(255, 255, 255, 0.18);
+    }
+
+    .base::after {
+      right: 0;
+      border-width: 135px 230px 0 0;
+      border-color: transparent rgba(255, 255, 255, 0.18) transparent transparent;
+    }
+
+    .flap {
+      display: none;
+    }
+
+    .letter {
+      position: absolute;
+      left: 50%;
+      top: 42px;
+      width: 388px;
+      height: 420px;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--card);
+      border-radius: 24px;
+      padding: 18px 22px 20px;
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.16);
+      z-index: 2;
+      transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease;
+      overflow-y: auto;
+      overflow-x: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 79, 138, 0.35) transparent;
+      backdrop-filter: blur(10px);
+    }
+
+    .letter::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .letter::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .letter::-webkit-scrollbar-thumb {
+      background: rgba(255, 79, 138, 0.28);
+      border-radius: 999px;
+    }
+
+    .envelope.open .letter {
+      transform: translateX(-50%) translateY(-350px) scale(1.02);
+    }
+
+    .photo-wrap {
+      width: 138px;
+      height: 138px;
+      margin: 0 auto 12px;
+      position: relative;
+      display: grid;
+      place-items: center;
+      animation: popIn 0.8s ease both;
+      flex-shrink: 0;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(16px) scale(0.92); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .photo-ring {
+      position: absolute;
+      inset: -8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #fff 0%, #ffe4ef 48%, #ffc4d8 100%);
+      box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.82);
+      z-index: 0;
+    }
+
+    .heart-photo {
+      width: 118px;
+      height: 118px;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      clip-path: path("M50 82 C20 62, 5 38, 22 22 C34 10, 50 18, 50 30 C50 18, 66 10, 78 22 C95 38, 80 62, 50 82 Z");
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+      background: white;
+    }
+
+    .heart-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .letter h2 {
+      font-size: 1.24rem;
+      color: var(--pink);
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .letter p {
+      font-size: 0.95rem;
+      line-height: 1.48;
+      color: #4a4a4a;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .final {
+      margin-top: 10px;
+      font-size: 1.03rem;
+      font-weight: 900;
+      color: var(--pink);
+      text-align: center;
+      padding-bottom: 2px;
+    }
+
+    .hint {
+      margin-top: 14px;
+      font-size: 0.85rem;
+      color: #7a7a7a;
+    }
+
+    @media (max-width: 480px) {
+      .scene {
+        padding: 28px 14px 110px;
+      }
+
+      .stage {
+        width: 330px;
+        height: 660px;
+        margin-top: 30px;
+      }
+
+      .envelope {
+        width: 330px;
+        height: 210px;
+      }
+
+      .base {
+        height: 210px;
+      }
+
+      .base::before {
+        border-width: 105px 0 0 165px;
+      }
+
+      .base::after {
+        border-width: 105px 165px 0 0;
+      }
+
+      .letter {
+        width: 302px;
+        height: 360px;
+        top: 30px;
+        padding: 14px 14px 16px;
+      }
+
+      .photo-wrap {
+        width: 116px;
+        height: 116px;
+        margin-bottom: 10px;
+      }
+
+      .heart-photo {
+        width: 98px;
+        height: 98px;
+      }
+
+      .letter h2 {
+        font-size: 1.08rem;
+        margin-bottom: 7px;
+      }
+
+      .letter p {
+        font-size: 0.86rem;
+        line-height: 1.34;
+        margin-bottom: 7px;
+      }
+
+      .final {
+        font-size: 0.94rem;
+        margin-top: 8px;
+      }
+
+      .envelope.open .letter {
+        transform: translateX(-50%) translateY(-290px) scale(1.02);
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="scene">
+    <div class="panel">
+      <div class="badge">💌 A small note for Sejal</div>
+      <div class="title">I made something just for you.</div>
+      <div class="subtitle">Open it when you are ready.</div>
 
-<div class="scene">
-  <div class="title">💌 For Sejal</div>
-  <div class="subtitle">I made something for you.</div>
+      <button class="cta" id="openBtn">Open My Letter ❤️</button>
 
-  <button class="open-btn" id="openBtn">Open My Letter ❤️</button>
+      <div class="stage" id="stage">
+        <div class="envelope" id="envelope">
+          <div class="letter">
+            <div class="photo-wrap">
+              <div class="photo-ring"></div>
+              <div class="heart-photo">
+                <img src="Screenshot 2026-02-17 001844.png" alt="Sejal">
+              </div>
+            </div>
 
-  <div class="stage" id="stage">
-    <div class="envelope" id="envelope">
-      <div class="letter">
-        <h2>I'm Sorry, Sejal ❤️</h2>
-        <p>I know I hurt you, and I am truly sorry.</p>
-        <p>You mean a lot to me, and I never wanted my mistake to create distance between us.</p>
-        <p>I will do better, listen better, and treat your feelings with the care they deserve.</p>
-        <div class="final">I will never take you for granted. ❤️</div>
+            <h2>I'm Sorry, Sejal ❤️</h2>
+            <p>I know I hurt you, and I am truly sorry.</p>
+            <p>You mean a lot to me, and I never wanted my mistake to create distance between us.</p>
+            <p>I will do better, listen better, and treat your feelings with the care they deserve.</p>
+            <p>I want to make things right, not with excuses, but with actions.</p>
+            <p>I will keep learning from this and be more thoughtful with your heart.</p>
+            <div class="final">I will never take you for granted. ❤️</div>
+          </div>
+
+          <div class="base"></div>
+        </div>
+
+        <div class="hint">The letter opens automatically after the envelope appears. You can scroll inside the card.</div>
       </div>
-      <div class="flap"></div>
-      <div class="left-triangle"></div>
-      <div class="right-triangle"></div>
-      <div class="base"></div>
     </div>
-    <div class="note">Click the button once. The letter will open automatically.</div>
   </div>
-</div>
 
-<script>
-  const stage = document.getElementById("stage");
-  const envelope = document.getElementById("envelope");
-  const openBtn = document.getElementById("openBtn");
+  <script>
+    const stage = document.getElementById('stage');
+    const envelope = document.getElementById('envelope');
+    const openBtn = document.getElementById('openBtn');
 
-  openBtn.addEventListener("click", () => {
-    stage.style.display = "block";
-    openBtn.disabled = true;
-    openBtn.style.opacity = "0.85";
-    openBtn.style.cursor = "default";
+    openBtn.addEventListener('click', () => {
+      stage.style.display = 'block';
+      openBtn.disabled = true;
+      openBtn.style.opacity = '0.88';
+      openBtn.style.cursor = 'default';
 
-    setTimeout(() => {
-      envelope.classList.add("open");
-    }, 350);
-  });
+      setTimeout(() => {
+        envelope.classList.add('open');
+      }, 380);
+    });
 
-  for (let i = 0; i < 18; i++) {
-    const heart = document.createElement("div");
-    heart.className = "bg-heart";
-    heart.textContent = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (14 + Math.random() * 18) + "px";
-    heart.style.animationDuration = (7 + Math.random() * 6) + "s";
-    heart.style.animationDelay = (Math.random() * 5) + "s";
-    document.body.appendChild(heart);
-  }
+    for (let i = 0; i < 22; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.textContent = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (14 + Math.random() * 18) + 'px';
+      heart.style.animationDuration = (7 + Math.random() * 6) + 's';
+      heart.style.animationDelay = (Math.random() * 5) + 's';
+      document.body.appendChild(heart);
+    }
 
-  document.addEventListener("mousemove", (e) => {
-    const heart = document.createElement("div");
-    heart.className = "trail-heart";
-    heart.textContent = "❤️";
-    heart.style.left = e.clientX + "px";
-    heart.style.top = e.clientY + "px";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 750);
-  });
-</script>
-
+    document.addEventListener('mousemove', (e) => {
+      const heart = document.createElement('div');
+      heart.className = 'trail-heart';
+      heart.textContent = '❤️';
+      heart.style.left = e.clientX + 'px';
+      heart.style.top = e.clientY + 'px';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 850);
+    });
+  </script>
 </body>
 </html>
