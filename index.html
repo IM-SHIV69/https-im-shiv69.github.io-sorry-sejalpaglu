@@ -1,294 +1,447 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Sejal ❤️</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Sejal ❤️</title>
+  <style>
+    :root {
+      --bg-a: #ffdbe8;
+      --bg-b: #fff0f6;
+      --bg-c: #ffe9f2;
+      --pink: #ff4f8a;
+      --pink-2: #ff6fa4;
+      --rose: #f26a9d;
+      --card: rgba(255, 255, 255, 0.88);
+      --text: #3e3e3e;
+      --muted: #707070;
+      --shadow: 0 20px 50px rgba(255, 79, 138, 0.18);
+    }
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
 
-body{
-background:linear-gradient(135deg,#ffd6e7,#ffeef6);
-height:100vh;
-overflow:hidden;
-display:flex;
-justify-content:center;
-align-items:center;
-position:relative;
-}
+    html, body {
+      height: 100%;
+    }
 
-.container{
-text-align:center;
-z-index:10;
-}
+    body {
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--bg-a) 0%, var(--bg-b) 48%, var(--bg-c) 100%);
+      color: var(--text);
+    }
 
-.title{
-color:#ff4d88;
-font-size:2rem;
-margin-bottom:15px;
-}
+    .scene {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
 
-.subtitle{
-color:#555;
-margin-bottom:25px;
-}
+    .floating-heart {
+      position: absolute;
+      pointer-events: none;
+      color: #ff7ba9;
+      filter: drop-shadow(0 4px 8px rgba(255, 79, 138, 0.10));
+      opacity: 0.9;
+      animation: rise linear infinite;
+      z-index: 1;
+    }
 
-.open-btn{
-background:#ff4d88;
-color:white;
-border:none;
-padding:15px 30px;
-border-radius:30px;
-font-size:18px;
-cursor:pointer;
-transition:.3s;
-box-shadow:0 10px 20px rgba(255,77,136,.25);
-}
+    @keyframes rise {
+      0%   { transform: translateY(110vh) scale(0.9); opacity: 0; }
+      10%  { opacity: 0.95; }
+      100% { transform: translateY(-130vh) scale(1.12); opacity: 0; }
+    }
 
-.open-btn:hover{
-transform:scale(1.05);
-}
+    .trail-heart {
+      position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      font-size: 18px;
+      animation: trail 0.85s ease-out forwards;
+      filter: drop-shadow(0 3px 8px rgba(255, 79, 138, 0.12));
+    }
 
-.envelope-wrapper{
-margin-top:30px;
-position:relative;
-display:none;
-width:350px;
-height:320px;
-}
+    @keyframes trail {
+      from { transform: translateY(0) scale(1); opacity: 1; }
+      to   { transform: translateY(-18px) scale(0.72); opacity: 0; }
+    }
 
-.envelope{
-position:absolute;
-bottom:0;
-width:350px;
-height:220px;
-}
+    .panel {
+      position: relative;
+      z-index: 10;
+      width: min(920px, 100%);
+      text-align: center;
+      padding: 28px 18px 0;
+    }
 
-.base{
-position:absolute;
-bottom:0;
-width:100%;
-height:220px;
-background:#f48fb1;
-border-radius:12px;
-z-index:1;
-}
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.52);
+      border: 1px solid rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(255, 79, 138, 0.08);
+      margin-bottom: 16px;
+      color: #ff4f8a;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
 
-.flap{
-position:absolute;
-top:0;
-width:0;
-height:0;
-border-left:175px solid transparent;
-border-right:175px solid transparent;
-border-top:120px solid #ec5f93;
-transform-origin:top;
-transition:1s;
-z-index:3;
-}
+    .title {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.05;
+      font-weight: 900;
+      color: #ff4f8a;
+      text-shadow: 0 8px 24px rgba(255, 79, 138, 0.12);
+      margin-bottom: 10px;
+    }
 
-.letter{
-position:absolute;
-left:25px;
-top:40px;
-width:300px;
-height:250px;
-background:white;
-border-radius:15px;
-padding:20px;
-box-shadow:0 10px 30px rgba(0,0,0,.15);
-z-index:2;
-transition:1.3s ease;
-overflow:auto;
-}
+    .subtitle {
+      font-size: clamp(1rem, 2.3vw, 1.15rem);
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
 
-.envelope.open .flap{
-transform:rotateX(180deg);
-}
+    .cta {
+      border: none;
+      border-radius: 999px;
+      padding: 15px 32px;
+      background: linear-gradient(135deg, var(--pink), var(--pink-2));
+      color: white;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
 
-.envelope.open .letter{
-transform:translateY(-180px);
-}
+    .cta:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 26px 56px rgba(255, 79, 138, 0.22);
+      filter: saturate(1.02);
+    }
 
-.letter h2{
-color:#ff4d88;
-margin-bottom:10px;
-}
+    .cta:active {
+      transform: translateY(0) scale(0.99);
+    }
 
-.letter p{
-line-height:1.7;
-color:#444;
-margin-bottom:10px;
-}
+    .stage {
+      position: relative;
+      display: none;
+      width: min(460px, 100%);
+      height: 560px;
+      margin: 42px auto 0;
+    }
 
-.final{
-font-weight:bold;
-color:#ff4d88;
-font-size:18px;
-margin-top:10px;
-}
+    .envelope {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 420px;
+      height: 250px;
+      filter: drop-shadow(0 24px 35px rgba(255, 79, 138, 0.18));
+    }
 
-.arrow-btn{
-position:absolute;
-left:50%;
-bottom:-70px;
-transform:translateX(-50%);
-background:white;
-width:60px;
-height:60px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:28px;
-cursor:pointer;
-box-shadow:0 5px 15px rgba(0,0,0,.2);
-z-index:9999;
-}
+    .base {
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 250px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, #f58cb0 0%, #f178a4 100%);
+      z-index: 1;
+      overflow: hidden;
+    }
 
-.floating-heart{
-position:absolute;
-color:#ff80ab;
-animation:floatUp linear infinite;
-pointer-events:none;
-}
+    .base::before,
+    .base::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      z-index: 2;
+    }
 
-@keyframes floatUp{
-from{
-transform:translateY(100vh);
-opacity:0;
-}
-to{
-transform:translateY(-120vh);
-opacity:1;
-}
-}
+    .base::before {
+      left: 0;
+      border-width: 125px 0 0 210px;
+      border-color: transparent transparent transparent rgba(255, 255, 255, 0.18);
+    }
 
-.heart-trail{
-position:fixed;
-pointer-events:none;
-animation:trail .8s linear forwards;
-z-index:99999;
-}
+    .base::after {
+      right: 0;
+      border-width: 125px 210px 0 0;
+      border-color: transparent rgba(255, 255, 255, 0.18) transparent transparent;
+    }
 
-@keyframes trail{
-to{
-transform:translateY(-25px);
-opacity:0;
-}
-}
-</style>
+    .flap {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 0;
+      height: 0;
+      border-left: 210px solid transparent;
+      border-right: 210px solid transparent;
+      border-top: 130px solid #ec5f93;
+      transform-origin: top center;
+      transition: transform 0.95s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 4;
+    }
+
+    .letter {
+      position: absolute;
+      left: 50%;
+      top: 34px;
+      width: 340px;
+      height: 292px;
+      transform: translateX(-50%) translateY(22px);
+      background: var(--card);
+      border-radius: 20px;
+      padding: 16px 18px 18px;
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.16);
+      z-index: 2;
+      transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+    }
+
+    .envelope.open .flap {
+      transform: rotateX(180deg);
+    }
+
+    .envelope.open .letter {
+      transform: translateX(-50%) translateY(-260px) scale(1.01);
+    }
+
+    .photo-wrap {
+      width: 128px;
+      height: 128px;
+      margin: 0 auto 12px;
+      position: relative;
+      display: grid;
+      place-items: center;
+      animation: popIn 0.8s ease both;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(16px) scale(0.92); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .photo-ring {
+      position: absolute;
+      inset: -8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #fff 0%, #ffe4ef 48%, #ffc4d8 100%);
+      box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.8);
+      z-index: 0;
+    }
+
+    .heart-photo {
+      width: 112px;
+      height: 112px;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      clip-path: path("M50 82 C20 62, 5 38, 22 22 C34 10, 50 18, 50 30 C50 18, 66 10, 78 22 C95 38, 80 62, 50 82 Z");
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+      background: white;
+    }
+
+    .heart-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    .letter h2 {
+      font-size: 1.18rem;
+      color: #ff4f8a;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .letter p {
+      font-size: 0.92rem;
+      line-height: 1.38;
+      color: #474747;
+      margin-bottom: 7px;
+      text-align: center;
+    }
+
+    .final {
+      margin-top: 8px;
+      font-size: 1rem;
+      font-weight: 900;
+      color: #ff4f8a;
+      text-align: center;
+    }
+
+    .note {
+      margin-top: 16px;
+      font-size: 0.85rem;
+      color: #7a7a7a;
+    }
+
+    @media (max-width: 480px) {
+      .panel {
+        padding: 18px 12px 0;
+      }
+
+      .stage {
+        width: 330px;
+        height: 520px;
+        margin-top: 32px;
+      }
+
+      .envelope {
+        width: 330px;
+        height: 210px;
+      }
+
+      .base {
+        height: 210px;
+      }
+
+      .base::before {
+        border-width: 105px 0 0 165px;
+      }
+
+      .base::after {
+        border-width: 105px 165px 0 0;
+      }
+
+      .flap {
+        border-left: 165px solid transparent;
+        border-right: 165px solid transparent;
+        border-top: 110px solid #ec5f93;
+      }
+
+      .letter {
+        width: 285px;
+        height: 250px;
+        top: 28px;
+        padding: 14px 14px 16px;
+      }
+
+      .photo-wrap {
+        width: 108px;
+        height: 108px;
+        margin-bottom: 10px;
+      }
+
+      .heart-photo {
+        width: 94px;
+        height: 94px;
+      }
+
+      .letter h2 {
+        font-size: 1.04rem;
+        margin-bottom: 6px;
+      }
+
+      .letter p {
+        font-size: 0.85rem;
+        line-height: 1.3;
+        margin-bottom: 5px;
+      }
+
+      .final {
+        font-size: 0.92rem;
+        margin-top: 7px;
+      }
+
+      .envelope.open .letter {
+        transform: translateX(-50%) translateY(-232px) scale(1.01);
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="scene">
+    <div class="panel">
+      <div class="badge">💌 A small note for Sejal</div>
+      <div class="title">I made something just for you.</div>
+      <div class="subtitle">Open it when you are ready.</div>
 
-<div class="container">
+      <button class="cta" id="openBtn">Open My Letter ❤️</button>
 
-<h1 class="title">💌 For Sejal</h1>
+      <div class="stage" id="stage">
+        <div class="envelope" id="envelope">
+          <div class="letter">
+            <div class="photo-wrap">
+              <div class="photo-ring"></div>
+              <div class="heart-photo">
+                <img src="Screenshot 2026-02-17 001844.png" alt="Sejal">
+              </div>
+            </div>
 
-<p class="subtitle">
-I made something for you.
-</p>
+            <h2>I'm Sorry, Sejal ❤️</h2>
+            <p>I know I hurt you, and I am truly sorry.</p>
+            <p>You mean a lot to me, and I never wanted my mistake to create distance between us.</p>
+            <p>I will do better, listen better, and treat your feelings with the care they deserve.</p>
+            <div class="final">I will never take you for granted. ❤️</div>
+          </div>
 
-<button class="open-btn" onclick="showEnvelope()">
-Open My Letter ❤️
-</button>
+          <div class="flap"></div>
+          <div class="base"></div>
+        </div>
 
-<div class="envelope-wrapper" id="wrapper">
+        <div class="note">The letter opens automatically after the envelope appears.</div>
+      </div>
+    </div>
+  </div>
 
-<div class="envelope" id="envelope">
+  <script>
+    const stage = document.getElementById('stage');
+    const envelope = document.getElementById('envelope');
+    const openBtn = document.getElementById('openBtn');
 
-<div class="letter">
+    openBtn.addEventListener('click', () => {
+      stage.style.display = 'block';
+      openBtn.disabled = true;
+      openBtn.style.opacity = '0.88';
+      openBtn.style.cursor = 'default';
 
-<h2>I'm Sorry, Sejal ❤️</h2>
+      setTimeout(() => {
+        envelope.classList.add('open');
+      }, 380);
+    });
 
-<p>
-I know I hurt you, and I am genuinely sorry.
-</p>
+    for (let i = 0; i < 20; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'floating-heart';
+      heart.textContent = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (14 + Math.random() * 18) + 'px';
+      heart.style.animationDuration = (7 + Math.random() * 6) + 's';
+      heart.style.animationDelay = (Math.random() * 5) + 's';
+      document.body.appendChild(heart);
+    }
 
-<p>
-You mean a lot to me and I never wanted my mistakes
-to become a reason for distance between us.
-</p>
-
-<p>
-I cannot change what happened, but I can learn from it,
-be better, listen more carefully and make sure your
-feelings always matter.
-</p>
-
-<p>
-Thank you for every smile, every conversation,
-and every memory we've shared together.
-</p>
-
-<div class="final">
-I promise I'll never take you for granted. ❤️
-</div>
-
-</div>
-
-<div class="flap"></div>
-<div class="base"></div>
-
-</div>
-
-<div class="arrow-btn" onclick="openLetter()">
-⬇️
-</div>
-
-</div>
-
-</div>
-
-<script>
-
-function showEnvelope(){
-document.getElementById("wrapper").style.display="block";
-}
-
-function openLetter(){
-document.getElementById("envelope").classList.add("open");
-}
-
-for(let i=0;i<20;i++){
-
-const heart=document.createElement("div");
-heart.className="floating-heart";
-heart.innerHTML="❤️";
-
-heart.style.left=Math.random()*100+"vw";
-heart.style.fontSize=(15+Math.random()*20)+"px";
-heart.style.animationDuration=(6+Math.random()*6)+"s";
-
-document.body.appendChild(heart);
-}
-
-document.addEventListener("mousemove",(e)=>{
-
-const heart=document.createElement("div");
-
-heart.className="heart-trail";
-heart.innerHTML="❤️";
-
-heart.style.left=e.pageX+"px";
-heart.style.top=e.pageY+"px";
-
-document.body.appendChild(heart);
-
-setTimeout(()=>{
-heart.remove();
-},800);
-
-});
-
-</script>
-
+    document.addEventListener('mousemove', (e) => {
+      const heart = document.createElement('div');
+      heart.className = 'trail-heart';
+      heart.textContent = '❤️';
+      heart.style.left = e.clientX + 'px';
+      heart.style.top = e.clientY + 'px';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 850);
+    });
+  </script>
 </body>
 </html>
