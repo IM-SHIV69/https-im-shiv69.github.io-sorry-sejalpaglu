@@ -1,0 +1,214 @@
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Heart, Sparkles, Gift, MailOpen } from 'lucide-react';
+
+export default function ApologyCardWebsite() {
+  const [open, setOpen] = useState(false);
+  const [forgiven, setForgiven] = useState(false);
+  const [trail, setTrail] = useState([]);
+  const containerRef = useRef(null);
+  const trailId = useRef(0);
+
+  const hearts = useMemo(
+    () =>
+      Array.from({ length: 10 }).map((_, i) => ({
+        id: i,
+        left: `${Math.random() * 100}%`,
+        delay: Math.random() * 4,
+        duration: 5 + Math.random() * 4,
+        size: 14 + Math.random() * 18,
+        opacity: 0.12 + Math.random() * 0.18,
+      })),
+    []
+  );
+
+  const promises = [
+    'I will listen more carefully.',
+    'I will never take your feelings lightly.',
+    'I will try harder, not just say I will.',
+    'I will make this right, step by step.',
+  ];
+
+  const closingMessage = 'I will never take you for granted, Sejal. Not now, not ever.';
+
+  useEffect(() => {
+    const handleMove = (e) => {
+      const x = e.clientX;
+      const y = e.clientY;
+      const id = trailId.current++;
+      const heart = {
+        id,
+        x,
+        y,
+        size: 12 + Math.random() * 10,
+        rotate: -20 + Math.random() * 40,
+      };
+
+      setTrail((prev) => [...prev, heart].slice(-18));
+      window.setTimeout(() => {
+        setTrail((prev) => prev.filter((item) => item.id !== id));
+      }, 900);
+    };
+
+    window.addEventListener('mousemove', handleMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleMove);
+  }, []);
+
+  return (
+    <div ref={containerRef} className="relative min-h-screen overflow-hidden bg-gradient-to-br from-rose-100 via-pink-50 to-orange-50 text-slate-800">
+      {hearts.map((heart) => (
+        <motion.div
+          key={heart.id}
+          className="pointer-events-none absolute text-rose-300"
+          style={{ left: heart.left, top: '110%' }}
+          animate={{
+            y: ['0vh', '-125vh'],
+            x: [0, Math.random() > 0.5 ? 18 : -18],
+            rotate: [0, 12, -12, 0],
+          }}
+          transition={{ duration: heart.duration, delay: heart.delay, repeat: Infinity, ease: 'linear' }}
+        >
+          <Heart size={heart.size} fill="currentColor" opacity={heart.opacity} />
+        </motion.div>
+      ))}
+
+      <AnimatePresence>
+        {trail.map((item) => (
+          <motion.div
+            key={item.id}
+            className="pointer-events-none fixed z-40 text-rose-400"
+            style={{ left: item.x, top: item.y }}
+            initial={{ opacity: 0, scale: 0.4, rotate: item.rotate, x: 0, y: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.1, y: -18 }}
+            transition={{ duration: 0.9, ease: 'easeOut' }}
+          >
+            <Heart size={item.size} fill="currentColor" />
+          </motion.div>
+        ))}
+      </AnimatePresence>
+
+      <div className="relative flex min-h-screen items-center justify-center px-4 py-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="relative w-full max-w-2xl rounded-[2rem] border border-white/70 bg-white/75 p-6 shadow-2xl backdrop-blur-xl sm:p-8"
+        >
+          <div className="mb-5 flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 text-rose-500">
+              <Sparkles className="h-5 w-5" />
+              <span className="text-sm font-semibold uppercase tracking-[0.3em]">A small note</span>
+            </div>
+            <div className="rounded-full bg-rose-100 px-3 py-1 text-xs font-medium text-rose-600">
+              from someone trying his best
+            </div>
+          </div>
+
+          <div className="rounded-[1.75rem] bg-gradient-to-b from-white to-rose-50 p-5 shadow-inner sm:p-8">
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.35em] text-rose-400">To Sejal</p>
+            <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-5xl">I am sorry.</h1>
+
+            <p className="mt-4 max-w-xl text-base leading-8 text-slate-600 sm:text-lg">
+              Sejal, I know I hurt you, and that part matters more than my excuses. I hate that I made you feel bad,
+              and I am genuinely sorry. You mean a lot to me, and I do not want my mistakes to be the thing that stays
+              between us.
+            </p>
+
+            <div className="mt-6 flex flex-wrap gap-3">
+              <button
+                onClick={() => setOpen((v) => !v)}
+                className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:scale-[1.02] hover:bg-slate-800"
+              >
+                <MailOpen className="h-4 w-4" />
+                {open ? 'Close the envelope' : 'Open the envelope'}
+              </button>
+
+              <button
+                onClick={() => setForgiven(true)}
+                className="rounded-full border border-rose-200 bg-white px-5 py-3 text-sm font-semibold text-rose-600 transition hover:scale-[1.02] hover:bg-rose-50"
+              >
+                Tap for my promise
+              </button>
+            </div>
+
+            <div className="mt-8 flex justify-center">
+              <div className="relative h-[340px] w-full max-w-md sm:h-[380px]">
+                <motion.div
+                  className="absolute inset-x-0 bottom-0 mx-auto h-48 w-full rounded-[2rem] bg-gradient-to-b from-rose-200 to-rose-300 shadow-2xl"
+                  animate={{ y: open ? 8 : 0, scale: open ? 1.01 : 1 }}
+                  transition={{ duration: 0.55, ease: 'easeOut' }}
+                >
+                  <div className="absolute inset-0 overflow-hidden rounded-[2rem]">
+                    <div className="absolute bottom-0 left-0 h-0 w-0 border-l-[180px] border-r-[180px] border-t-[115px] border-l-transparent border-r-transparent border-t-rose-100 sm:border-l-[200px] sm:border-r-[200px]" />
+                    <motion.div
+                      className="absolute top-0 left-0 h-0 w-0 border-l-[180px] border-r-[180px] border-b-[120px] border-l-transparent border-r-transparent border-b-rose-100 origin-top sm:border-l-[200px] sm:border-r-[200px]"
+                      animate={{ rotateX: open ? 175 : 0 }}
+                      transition={{ duration: 0.7, ease: 'easeInOut' }}
+                      style={{ perspective: 1200 }}
+                    />
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  className="absolute left-1/2 top-8 w-[92%] -translate-x-1/2 rounded-[1.5rem] border border-rose-100 bg-white p-5 shadow-xl sm:p-6"
+                  initial={false}
+                  animate={{
+                    y: open ? -108 : 0,
+                    scale: open ? 1 : 0.98,
+                    opacity: open ? 1 : 0.82,
+                    rotate: open ? 0 : 0,
+                  }}
+                  transition={{ duration: 0.85, ease: 'easeOut' }}
+                >
+                  <div className="mb-4 flex items-center gap-2 text-rose-500">
+                    <Gift className="h-5 w-5" />
+                    <span className="text-sm font-semibold uppercase tracking-[0.25em]">A letter for Sejal</span>
+                  </div>
+
+                  <h2 className="text-2xl font-bold text-slate-900">I owe you more than words.</h2>
+                  <p className="mt-3 text-sm leading-7 text-slate-600 sm:text-base">
+                    I am sorry for making you feel hurt. I know I cannot erase that, but I can be better, be kinder,
+                    and stop treating your feelings like they can wait. They cannot.
+                  </p>
+
+                  <div className="mt-4 rounded-[1.25rem] bg-rose-50 p-4 text-sm text-slate-700 sm:text-base">
+                    <p className="font-semibold text-rose-700">What I promise</p>
+                    <ul className="mt-3 space-y-2">
+                      {promises.map((item) => (
+                        <li key={item} className="flex items-start gap-3">
+                          <span className="mt-2 h-2.5 w-2.5 rounded-full bg-rose-400" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+
+            <div className="mt-6 rounded-[1.5rem] bg-rose-100/70 p-5 text-center">
+              {forgiven ? (
+                <motion.p initial={{ scale: 0.95 }} animate={{ scale: 1 }} className="text-lg font-semibold text-rose-700">
+                  Thank you for giving me a chance, Sejal. I will prove it with actions.
+                </motion.p>
+              ) : (
+                <p className="text-base font-medium text-slate-700">
+                  I do not expect perfection. I just want the chance to make this right.
+                </p>
+              )}
+            </div>
+
+            <div className="mt-5 rounded-[1.25rem] border border-rose-200 bg-white p-4 text-center text-sm font-medium text-slate-700">
+              {closingMessage}
+            </div>
+          </div>
+
+          <p className="mt-5 text-center text-xs tracking-wide text-slate-400">
+            Made with honesty, regret, and a suspiciously large amount of affection.
+          </p>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
